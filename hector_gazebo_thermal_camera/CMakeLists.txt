@@ -4,14 +4,9 @@ project(hector_gazebo_thermal_camera)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS gazebo_plugins)
+find_package(catkin REQUIRED COMPONENTS gazebo_dev gazebo_plugins)
 include_directories(include ${catkin_INCLUDE_DIRS})
-
-## Find gazebo
-find_package(gazebo REQUIRED)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
-include_directories(${GAZEBO_INCLUDE_DIRS})
-link_directories(${GAZEBO_LIBRARY_DIRS})
+link_directories(${catkin_LIBRARY_DIRS}) # required to find CameraPlugin and DepthCameraPlugin provided by Gazebo
 
 ## Find OGRE and OGRE-Paging (required for CameraPlugin.hh in Gazebo 5)
 include (FindPkgConfig)
@@ -36,7 +31,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-    DEPENDS gazebo
     CATKIN_DEPENDS gazebo_plugins
     INCLUDE_DIRS include
     LIBRARIES
@@ -47,10 +41,10 @@ catkin_package(
 ###########
 
 add_library(gazebo_ros_thermal_camera src/gazebo_ros_thermal_camera_plugin.cpp)
-target_link_libraries(gazebo_ros_thermal_camera ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES} CameraPlugin)
+target_link_libraries(gazebo_ros_thermal_camera ${catkin_LIBRARIES} ${Boost_LIBRARIES} CameraPlugin)
 
 add_library(gazebo_ros_thermal_depth_camera src/gazebo_ros_thermal_depth_camera_plugin.cpp)
-target_link_libraries(gazebo_ros_thermal_depth_camera ${GAZEBO_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES} DepthCameraPlugin)
+target_link_libraries(gazebo_ros_thermal_depth_camera ${catkin_LIBRARIES} ${Boost_LIBRARIES} DepthCameraPlugin)
 
 #############
 ## Install ##

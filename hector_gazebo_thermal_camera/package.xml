@@ -1,4 +1,5 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>hector_gazebo_thermal_camera</name>
   <version>0.3.8</version>
   <description>hector_gazebo_thermal_camera provides a gazebo plugin that produces simulated thermal camera images. The plugin uses modified code from the gazebo_ros_camera plugin.</description>
@@ -14,14 +15,10 @@
   <!-- Dependencies which this package needs to build itself. -->
   <buildtool_depend>catkin</buildtool_depend>
 
-  <!-- Dependencies needed to compile this package. -->
-  <build_depend>roscpp</build_depend>
-  <build_depend>gazebo</build_depend>
-  <build_depend>gazebo_plugins</build_depend>
-
-  <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>roscpp</run_depend>
-  <run_depend>gazebo</run_depend>
-  <run_depend>gazebo_plugins</run_depend>
+  <depend>roscpp</depend>
+  <depend>nodelet</depend>
+  <build_depend>gazebo_dev</build_depend>
+  <exec_depend>gazebo</exec_depend>
+  <depend>gazebo_plugins</depend>
 
 </package>
